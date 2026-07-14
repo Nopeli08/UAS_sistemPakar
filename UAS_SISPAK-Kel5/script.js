@@ -2,183 +2,298 @@
    LOGIC & DECISION TREE C4.5 - SISTEM PAKAR DIAGNOSA ANDROID (KELOMPOK 5)
    ========================================================================== */
 
-// 1. DATA POHON KEPUTUSAN C4.5 SIMULATION
+// 1. DATA POHON KEPUTUSAN C4.5 FLAT INDEX STRUCTURE (FIXED)
 const decisionTree = {
+  // --- LEVEL 1: PERTANYAAN UTAMA (KONDISI NYALA HP) ---
   "Q1": {
-    pertanyaan: "Apakah smartphone Anda bisa menyala sampai ke menu utama (homescreen)?",
-    jika_ya: "Q2",
-    jika_tidak: "Q3"
+    "pertanyaan": "Apakah Handphone dapat dinyalakan dengan normal sampai ke menu?",
+    "jika_ya": "Q2",   // Masuk ke jalur HP Hidup
+    "jika_tidak": "Q9" // Masuk ke jalur HP Mati/Restart
   },
+ 
+  // ==========================================================================
+  // JALUR HP HIDUP (8 kerusakan: K13, K22, K32, K15, K20, K1, K3, K4)
+  // ==========================================================================
   "Q2": {
-    pertanyaan: "Apakah layar smartphone menampilkan gambar dengan normal dan merespon sentuhan dengan baik (tidak pecah, tidak bergaris, tidak ghost touch)?",
-    jika_ya: "Q5", 
-    jika_tidak: "Q4" 
+    "pertanyaan": "Apakah aplikasi dan sistem operasi berjalan dengan baik tanpa lag/error?",
+    "jika_ya": "Q3",
+    "jika_tidak": "Q7"
   },
   "Q3": {
-    pertanyaan: "Apakah smartphone Anda benar-benar mati total (tidak bergetar, tidak ada indikator lampu, tidak merespon tombol power sama sekali)?",
-    jika_ya: "Q6", 
-    jika_tidak: "Q7" 
+    "pertanyaan": "Apakah ada masalah pada output suara (speaker mati atau mic tidak merespon)?",
+    "jika_ya": "Q4",
+    "jika_tidak": "Q5"
   },
   "Q4": {
-    pertanyaan: "Apakah layar smartphone pecah secara fisik, bergaris-garis warna, atau mengalami sentuhan liar (ghost touch)?",
-    jika_ya: {
-      tipe: "HARDWARE",
-      nama: "Layar/LCD Pecah atau Ghost Touch",
-      persentase: 94,
-      solusi: [
-        "Hindari menekan area layar yang pecah agar tidak merusak panel OLED/LCD di bawahnya.",
-        "Gunakan pelindung layar tambahan (tempered glass) sementara jika retakannya hanya retak halus.",
-        "Segera bawa ke service center untuk penggantian modul LCD satu set (layar sentuh + LCD).",
-        "Jangan mencoba membiarkan ghost touch terus-menerus karena dapat memicu salah input PIN/password berkali-kali yang berujung pada HP terkunci total."
+    "pertanyaan": "Apakah komponen Speaker (suara media) dan Microphone mati secara bersamaan?",
+    "jika_ya": {
+      "tipe": "HARDWARE",
+      "nama": "Speaker (fisik, interface)",
+      "persentase": 95,
+      "solusi": [
+        "Periksa kebersihan lubang speaker dari debu atau kotoran.",
+        "Lakukan pengujian modul speaker fisik menggunakan hardware test menu (*#0*#).",
+        "Bawa ke teknisi untuk penggantian komponen buzzer jika kumparan putus."
       ]
     },
-    jika_tidak: "Q5"
+    "jika_tidak": {
+      "tipe": "HARDWARE",
+      "nama": "Microphone",
+      "persentase": 92,
+      "solusi": [
+        "Bersihkan lubang mic kecil di bagian bawah bodi HP secara hati-hati.",
+        "Gunakan aplikasi perekam suara bawaan untuk memastikan ini bukan bug aplikasi pihak ketiga.",
+        "Jika suara tetap tidak terekam, modul fleksibel mic harus diganti."
+      ]
+    }
   },
   "Q5": {
-    pertanyaan: "Apakah persentase baterai menurun sangat drastis (drop cepat), smartphone sering mati tiba-tiba saat baterai masih 20-30%, atau baterai terlihat kembung?",
-    jika_ya: {
-      tipe: "HARDWARE",
-      nama: "Baterai Drop atau Kembung",
-      persentase: 92,
-      solusi: [
-        "Hentikan penggunaan smartphone segera jika baterai terlihat menggelembung/kembung untuk menghindari risiko meledak atau terbakar.",
-        "Gunakan charger original bawaan dan hindari menggunakan smartphone secara intensif saat sedang di-charge.",
-        "Nonaktifkan aplikasi latar belakang dan matikan fitur GPS/Bluetooth/Wi-Fi jika tidak digunakan untuk menghemat daya sementara.",
-        "Lakukan penggantian baterai dengan komponen yang baru dan original di service center resmi."
+    "pertanyaan": "Apakah fitur getar (vibrator) HP mati total?",
+    "jika_ya": {
+      "tipe": "HARDWARE",
+      "nama": "Vibrator Interface",
+      "persentase": 95,
+      "solusi": [
+        "Pastikan mode getar telah diaktifkan pada pengaturan profil suara.",
+        "Periksa konektor motor vibrator pada mesin utama.",
+        "Ganti komponen dinamo getar yang sudah lemah."
       ]
     },
-    jika_tidak: "Q8"
+    "jika_tidak": "Q6"
   },
   "Q6": {
-    pertanyaan: "Saat dicolokkan ke charger, apakah smartphone menunjukkan indikator pengisian daya atau bergetar, tetapi tetap tidak bisa dinyalakan?",
-    jika_ya: {
-      tipe: "HARDWARE",
-      nama: "IC Power Rusak",
-      persentase: 88,
-      solusi: [
-        "Cobalah menekan tombol power + volume bawah bersamaan selama 10-15 detik untuk memicu soft reset.",
-        "Jika tetap tidak menyala namun ada getaran/indikator pengisian daya, kemungkinan besar komponen IC Power di motherboard bermasalah.",
-        "Hindari menggunakan charger non-standar atau charger dengan tegangan berlebih yang dapat merusak sirkuit daya mesin smartphone.",
-        "Bawa smartphone ke teknisi profesional atau service center resmi untuk dilakukan pengukuran tegangan mesin dan penggantian IC Power."
+    "pertanyaan": "Apakah Wi-Fi tidak bisa diaktifkan ATAU Bluetooth gagal mendeteksi perangkat lain?",
+    "jika_ya": {
+      "tipe": "HARDWARE",
+      "nama": "IC WiFi/Bluetooth",
+      "persentase": 91,
+      "solusi": [
+        "Lakukan reset pengaturan jaringan (Wi-Fi & Bluetooth) pada sistem Android.",
+        "Jika salah satu modul tetap mati setelah reset, kemungkinan chip combo IC WiFi/Bluetooth bermasalah.",
+        "Lakukan reballing atau penggantian chip IC WiFi/Bluetooth di logic board."
       ]
     },
-    jika_tidak: "Q9"
+    "jika_tidak": {
+      "tipe": "HARDWARE",
+      "nama": "Touchscreen (Mati Sebagian)",
+      "persentase": 96,
+      "solusi": [
+        "Bersihkan layar dari kotoran atau air.",
+        "Aktifkan 'Tampilkan ketukan' di opsi pengembang untuk melacak area mati.",
+        "Ganti panel kaca depan/digitizer touchscreen."
+      ]
+    }
   },
   "Q7": {
-    pertanyaan: "Apakah smartphone Anda menyala tetapi hanya menampilkan logo Android / merk secara terus-menerus (stuck logo) dan tidak pernah masuk ke menu utama?",
-    jika_ya: {
-      tipe: "SOFTWARE",
-      nama: "Bootloop (Stuck Logo)",
-      persentase: 95,
-      solusi: [
-        "Lakukan restart paksa (force restart) dengan menekan kombinasi tombol Power + Volume Down selama beberapa detik.",
-        "Masuk ke recovery mode (biasanya tekan Power + Volume Up saat HP mati) dan lakukan 'Wipe Cache Partition' (jika ada) untuk membersihkan file cache yang rusak.",
-        "Jika masih bootloop, lakukan 'Wipe Data / Factory Reset' melalui recovery mode (Catatan: ini akan menghapus semua file di penyimpanan internal).",
-        "Apabila langkah di atas gagal, flash ulang firmware resmi smartphone menggunakan PC/Laptop sesuai seri tipe HP Anda."
+    "pertanyaan": "Apakah kartu SIM (SIM Card) tiba-tiba tidak terbaca oleh sistem?",
+    "jika_ya": {
+      "tipe": "HARDWARE",
+      "nama": "SIM Card (Fisik)",
+      "persentase": 96,
+      "solusi": [
+        "Coba gunakan kartu SIM lain untuk memastikan kartu lama tidak rusak.",
+        "Bersihkan kuningan pembaca di dalam slot SIM dengan cairan pembersih khusus.",
+        "Ganti satu set slot tray pembaca kartu SIM jika ada pin yang patah."
       ]
     },
-    jika_tidak: "Q10"
+    "jika_tidak": "Q8"
   },
   "Q8": {
-    pertanyaan: "Apakah Anda tidak bisa masuk ke layar utama karena lupa pola, PIN, atau kata sandi kunci layar?",
-    jika_ya: {
-      tipe: "SOFTWARE",
-      nama: "Lupa Pola/Sandi (Kunci Layar)",
-      persentase: 97,
-      solusi: [
-        "Gunakan layanan resmi pabrikan seperti Google 'Find My Device' atau 'SmartThings Find' (untuk Samsung) untuk mereset kunci layar secara remote jika HP terhubung internet.",
-        "Matikan HP Anda, masuk ke Recovery Mode dengan menekan kombinasi tombol Power + Volume Up secara bersamaan, kemudian pilih 'Wipe Data/Factory Reset' (ini akan menghapus semua data internal).",
-        "Setelah berhasil reset, masukkan email Google dan password yang sebelumnya tersinkronisasi di HP tersebut untuk melewati verifikasi FRP (Factory Reset Protection).",
-        "Jika masih terkendala, bawa kartu garansi/nota pembelian resmi ke service center resmi pabrikan untuk dibantu pembukaan kunci."
+    "pertanyaan": "Apakah aplikasi kamera sering force-close, gagal dibuka, atau hasil gambar blur?",
+    "jika_ya": {
+      "tipe": "HARDWARE",
+      "nama": "Kamera (Soket Kendor)",
+      "persentase": 93,
+      "solusi": [
+        "Periksa apakah aplikasi kamera langsung crash atau black screen.",
+        "Bongkar HP dan pastikan soket fleksibel kamera tidak kendor akibat benturan.",
+        "Ganti modul kamera modular jika lensa dalam pecah."
       ]
     },
-    jika_tidak: "Q11"
+    "jika_tidak": {
+      "tipe": "SOFTWARE",
+      "nama": "Boot Restart (Virus/Malware/Overload)",
+      "persentase": 92,
+      "solusi": [
+        "Masuk ke Safe Mode Android dan uninstal aplikasi asing/mencurigakan yang terindikasi malware.",
+        "Hapus cache dan file sampah, serta uninstal aplikasi versi BETA penyebab overload/panas berlebih.",
+        "Lakukan factory reset jika sistem masih sering hang, crash, atau muncul iklan pop-up."
+      ]
+    }
   },
+ 
+  // ==========================================================================
+  // JALUR HP MATI / RESTART (12 kerusakan: K8, K18, K10, K5, K12, K16, K29,
+  // K2, K24, K27, K28, K7)
+  // ==========================================================================
   "Q9": {
-    pertanyaan: "Apakah lubang port charger terasa longgar saat kabel dicolokkan, kotor, atau Anda harus memegang kabel pada sudut tertentu agar pengisian daya berjalan?",
-    jika_ya: {
-      tipe: "HARDWARE",
-      nama: "Port Charger Rusak",
-      persentase: 90,
-      solusi: [
-        "Gunakan senter untuk memeriksa lubang port USB, lalu bersihkan debu atau serat kain secara perlahan menggunakan jarum tipis atau tusuk gigi kayu secara ekstra hati-hati.",
-        "Coba gunakan kabel charger dan adaptor lain yang sudah dipastikan berfungsi normal pada smartphone lain.",
-        "Hindari menarik atau menggoyang-goyangkan kabel saat dicolokkan ke port charger untuk menghindari kerusakan solderan kaki port pada mesin.",
-        "Bawa ke bengkel reparasi HP terpercaya untuk mengganti konektor charger (port micro USB / USB Type-C) yang rusak."
-      ]
-    },
-    jika_tidak: {
-      tipe: "HARDWARE",
-      nama: "IC Power Rusak",
-      persentase: 85,
-      solusi: [
-        "Karena tidak ada respon kelistrikan dan kondisi fisik port charger tampak normal, kerusakan diduga kuat pada IC Power atau jalur sirkuit pengisian daya di mainboard.",
-        "Jangan memaksakan men-charge terus-menerus dalam waktu lama karena bisa menyebabkan panas berlebih yang memperparah kerusakan komponen lain.",
-        "Segera bawa ke service center untuk pengecekan tegangan arus masuk menggunakan multimeter."
-      ]
-    }
+    "pertanyaan": "Apakah HP mengalami siklus mati-hidup sendiri (looping) secara terus-menerus?",
+    "jika_ya": "Q10",   // Jalur Restart Loop
+    "jika_tidak": "Q13" // Jalur Mati Total / Sinyal Hilang / Fisik
   },
+ 
+  // --- SUB-JALUR: RESTART LOOP (4 kerusakan) ---
   "Q10": {
-    pertanyaan: "Apakah smartphone secara otomatis masuk ke menu Recovery Mode / Safe Mode setiap kali dihidupkan?",
-    jika_ya: {
-      tipe: "SOFTWARE",
-      nama: "Bootloop / Kerusakan OS (Recovery Loop)",
-      persentase: 91,
-      solusi: [
-        "Pilih opsi 'Reboot System Now' pada menu Recovery menggunakan tombol volume untuk memindahkan kursor dan tombol power untuk konfirmasi.",
-        "Periksa tombol Volume Up/Down fisik Anda, pastikan tidak terjepit atau macet karena tombol volume tertekan saat booting memicu masuk ke recovery secara otomatis.",
-        "Lakukan 'Wipe Data / Factory Reset' melalui menu recovery untuk membersihkan file sistem OS yang mengalami korupsi data.",
-        "Apabila tombol normal dan wipe data tidak berhasil, bawa ke teknisi untuk instal ulang firmware resmi."
+    "pertanyaan": "Apakah mati total ini terjadi setelah/karena HP terkena air atau cairan?",
+    "jika_ya": {
+      "tipe": "HARDWARE",
+      "nama": "IC Power",
+      "persentase": 95,
+      "solusi": [
+        "Lepaskan baterai dengan segera untuk memutus arus.",
+        "Ukur tegangan kapasitor di sekitar IC Power.",
+        "Lakukan reball atau penggantian IC Power utama."
       ]
     },
-    jika_tidak: {
-      tipe: "SOFTWARE",
-      nama: "Lupa Pola/Sandi (Kunci Layar)",
-      persentase: 80,
-      solusi: [
-        "Jika HP tidak mati total dan tidak stuck logo melainkan hanya tidak bisa diakses, besar kemungkinan terjadi bug pada otentikasi kunci keamanan Android.",
-        "Lakukan Factory Reset melalui recovery mode guna mengembalikan setelan perangkat ke pengaturan pabrik.",
-        "Pastikan Anda mengingat email Google yang terdaftar di HP tersebut untuk proses setup awal (bypass FRP)."
-      ]
-    }
+    "jika_tidak": "Q11"
   },
   "Q11": {
-    pertanyaan: "Apakah smartphone Anda sering terasa lambat secara signifikan (lag parah) saat membuka menu atau berpindah aplikasi?",
-    jika_ya: "Q12",
-    jika_tidak: {
-      tipe: "SOFTWARE",
-      nama: "Sistem Melambat (Lag Parah)",
-      persentase: 75,
-      solusi: [
-        "Hapus file cache aplikasi yang menumpuk melalui Pengaturan > Penyimpanan > Bersihkan File Sampah.",
-        "Hapus (uninstall) aplikasi yang jarang digunakan untuk melonggarkan kapasitas penyimpanan internal (sisakan minimal 15-20% ruang kosong).",
-        "Matikan animasi visual sistem melalui Pengaturan > Opsi Developer > Ubah Skala Animasi ke 0.5x atau Nonaktifkan.",
-        "Lakukan restart HP secara berkala (misal 2-3 hari sekali) untuk menyegarkan kembali RAM sistem."
+    "pertanyaan": "Apakah saat dicolok charger, lampu indikator atau layar tidak memunculkan gambar sama sekali?",
+    "jika_ya": {
+      "tipe": "HARDWARE",
+      "nama": "IC CPU (Otak Mesin)",
+      "persentase": 91,
+      "solusi": [
+        "Hubungkan ke PC, cek apakah terdeteksi driver chipset (9008/Preloader).",
+        "Lakukan pengerjaan reballing (angkat cetak kaki) chip CPU.",
+        "Ganti mesin utuh jika jalur internal board terputus."
+      ]
+    },
+    "jika_tidak": "Q12"
+  },
+  "Q12": {
+    "pertanyaan": "Apakah HP tiba-tiba mati/restart saat digunakan untuk membuka aplikasi berat atau kamera?",
+    "jika_ya": {
+      "tipe": "HARDWARE",
+      "nama": "Baterai (Drop/Rusak)",
+      "persentase": 97,
+      "solusi": [
+        "Periksa apakah fisik baterai kembung.",
+        "Uji stabilitas tegangan dengan multitester (minimal 3.7 Volt).",
+        "Ganti baterai dengan yang baru dan original."
+      ]
+    },
+    "jika_tidak": {
+      "tipe": "SOFTWARE",
+      "nama": "Bootloop (Gagal Booting)",
+      "persentase": 94,
+      "solusi": [
+        "Masuk ke Recovery Mode (tombol Power + Volume Up).",
+        "Pilih 'Wipe Data / Factory Reset'; jika belum berhasil unduh Stock ROM Firmware asli sesuai tipe HP.",
+        "Flash ulang firmware menggunakan SP Flash Tool atau Odin sebelum booting ulang."
       ]
     }
   },
-  "Q12": {
-    pertanyaan: "Apakah masalah utama adalah aplikasi yang sering keluar sendiri secara mendadak disertai pesan error 'Aplikasi Telah Berhenti' (Force Close)?",
-    jika_ya: {
-      tipe: "SOFTWARE",
-      nama: "Aplikasi Sering Force Close",
-      persentase: 93,
-      solusi: [
-        "Hapus cache dan data pada aplikasi yang bermasalah melalui Pengaturan > Aplikasi > [Pilih Aplikasi] > Penyimpanan > Hapus Cache & Hapus Data.",
-        "Perbarui (update) aplikasi bermasalah tersebut ke versi terbaru melalui Google Play Store.",
-        "Apabila force close terjadi pada layanan sistem (seperti Google Play Services), coba uninstal pembaruan Google Play Services lalu instal ulang.",
-        "Pastikan RAM bebas memadai; tutup aplikasi latar belakang lain sebelum menjalankan aplikasi berat."
+ 
+  // --- SUB-JALUR: TIDAK LOOPING (8 kerusakan) ---
+  "Q13": {
+    "pertanyaan": "Apakah masalah utamanya adalah hilangnya sinyal seluler (No Service/Panggilan Darurat)?",
+    "jika_ya": "Q14",
+    "jika_tidak": "Q16"
+  },
+ 
+  // -- Sinyal (3 kerusakan) --
+  "Q14": {
+    "pertanyaan": "Apakah nomor IMEI HP Anda hilang atau berubah menjadi 'Null / Unknown' saat dicek via *#06#?",
+    "jika_ya": {
+      "tipe": "SOFTWARE",
+      "nama": "IMEI (Software Corrupt)",
+      "persentase": 95,
+      "solusi": [
+        "Cek status IMEI melalui dial *#06#.",
+        "Lakukan write ulang data NVRAM / EFS menggunakan box flasher.",
+        "Daftarkan kembali nomor IMEI jika terblokir di database."
       ]
     },
-    jika_tidak: {
-      tipe: "SOFTWARE",
-      nama: "Sistem Melambat (Lag Parah)",
-      persentase: 89,
-      solusi: [
-        "Bersihkan file sampah dan cache yang menumpuk di penyimpanan internal HP.",
-        "Batasi proses latar belakang melalui Opsi Pengembang (Limit background processes ke maksimal 2 atau 3 proses).",
-        "Gunakan versi ringan (Lite) untuk aplikasi-aplikasi yang memakan banyak memori (seperti Facebook Lite, dll).",
-        "Lakukan backup data penting kemudian lakukan Factory Reset jika performa sistem masih lambat secara tidak wajar."
+    "jika_tidak": "Q15"
+  },
+  "Q15": {
+    "pertanyaan": "Apakah setelah ganti kartu SIM baru sinyal tetap tidak muncul sama sekali?",
+    "jika_ya": {
+      "tipe": "HARDWARE",
+      "nama": "IC WTR / Transceiver",
+      "persentase": 92,
+      "solusi": [
+        "Periksa kabel antena koaksial di dalam casing.",
+        "Ganti IC Transceiver (WTR/MT) penerima sinyal.",
+        "Solder ulang jalur antena penguat daya (RF)."
+      ]
+    },
+    "jika_tidak": {
+      "tipe": "SOFTWARE",
+      "nama": "EEPROM (Data Sinyal)",
+      "persentase": 89,
+      "solusi": [
+        "Flash ulang baseband firmware.",
+        "Restore partisi backup modem via TWRP.",
+        "Lakukan repair partisi modem di sistem."
+      ]
+    }
+  },
+ 
+  // -- Non-sinyal / fisik (5 kerusakan) --
+  "Q16": {
+    "pertanyaan": "Apakah layar HP Anda mati (hitam), tetapi getar atau suara notifikasi masih aktif?",
+    "jika_ya": "Q17",
+    "jika_tidak": "Q18"
+  },
+  "Q17": {
+    "pertanyaan": "Apakah layar HP tersebut retak di bagian dalam setelah insiden terjatuh?",
+    "jika_ya": {
+      "tipe": "HARDWARE",
+      "nama": "LCD (Fisik Rusak)",
+      "persentase": 96,
+      "solusi": [
+        "Periksa keretakan kaca LCD bagian dalam.",
+        "Pasang kembali soket LCD yang mungkin kendor.",
+        "Ganti satu set panel LCD + Touchscreen."
+      ]
+    },
+    "jika_tidak": {
+      "tipe": "HARDWARE",
+      "nama": "Flexi Cable",
+      "persentase": 91,
+      "solusi": [
+        "Bersihkan pin konektor fleksibel penghubung layar.",
+        "Periksa apakah ada lipatan tajam yang memutus jalur fleksibel.",
+        "Ganti kabel fleksibel penghubung mesin atas-bawah."
+      ]
+    }
+  },
+  "Q18": {
+    "pertanyaan": "Apakah tombol Power terasa empuk/tidak klik saat ditekan secara fisik?",
+    "jika_ya": {
+      "tipe": "HARDWARE",
+      "nama": "Power On Key",
+      "persentase": 94,
+      "solusi": [
+        "Hubungkan kedua pin power di mesin menggunakan pinset untuk menyalakan langsung.",
+        "Bersihkan membran tombol dari karat.",
+        "Ganti flexi switch tombol power."
+      ]
+    },
+    "jika_tidak": "Q19"
+  },
+  "Q19": {
+    "pertanyaan": "Apakah komputer/laptop masih mendeteksi perangkat Anda saat tersambung kabel data?",
+    "jika_ya": {
+      "tipe": "HARDWARE",
+      "nama": "IC UEM (Power Distribution)",
+      "persentase": 88,
+      "solusi": [
+        "Uji arus pengisian daya menggunakan USB Ammeter.",
+        "Perbaiki jalur distribusi tegangan utama.",
+        "Ganti komponen IC UEM yang mengontrol daya sistem."
+      ]
+    },
+    "jika_tidak": {
+      "tipe": "HARDWARE",
+      "nama": "Hardbrick (Mati Total)",
+      "persentase": 90,
+      "solusi": [
+        "Gunakan Test Point untuk memaksa masuk EDL Mode.",
+        "Lakukan flashing bootloader via alat JTAG.",
+        "Ganti modul memori internal jika tidak bisa di-write."
       ]
     }
   }
@@ -222,6 +337,9 @@ window.addEventListener("DOMContentLoaded", () => {
 
   toast = document.getElementById("toast");
   toastMessage = document.getElementById("toast-message");
+  
+  // Memastikan bahwa sistem merender antarmuka awal
+  resetDiagnosis();
 });
 
 // 3. NAVIGATION & LOGIC FUNCTIONS (Exposed globally)
@@ -347,22 +465,28 @@ function showResult(resultData) {
   if (resultData.tipe === "HARDWARE") {
     resultBadge.className = "px-3 py-1 rounded-full text-xs font-extrabold tracking-wider bg-rose-500/10 border border-rose-500/30 text-rose-400 uppercase inline-block";
     resultAccentStrip.className = "absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-rose-500 to-orange-500";
-    gradientStart.setAttribute("stop-color", "#f43f5e");
-    gradientEnd.setAttribute("stop-color", "#fb923c");
+    if(gradientStart && gradientEnd) {
+      gradientStart.setAttribute("stop-color", "#f43f5e");
+      gradientEnd.setAttribute("stop-color", "#fb923c");
+    }
   } else {
     resultBadge.className = "px-3 py-1 rounded-full text-xs font-extrabold tracking-wider bg-sky-500/10 border border-sky-500/30 text-sky-400 uppercase inline-block";
     resultAccentStrip.className = "absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-indigo-500 to-teal-400";
-    gradientStart.setAttribute("stop-color", "#6366f1");
-    gradientEnd.setAttribute("stop-color", "#2dd4bf");
+    if(gradientStart && gradientEnd) {
+      gradientStart.setAttribute("stop-color", "#6366f1");
+      gradientEnd.setAttribute("stop-color", "#2dd4bf");
+    }
   }
 
   const circumference = 2 * Math.PI * 62;
   const offset = circumference - (resultData.persentase / 100) * circumference;
   
-  setTimeout(() => {
-    resultDialFill.style.strokeDasharray = `${circumference}`;
-    resultDialFill.style.strokeDashoffset = `${offset}`;
-  }, 100);
+  if (resultDialFill) {
+    setTimeout(() => {
+      resultDialFill.style.strokeDasharray = `${circumference}`;
+      resultDialFill.style.strokeDashoffset = `${offset}`;
+    }, 100);
+  }
 
   resultSolutionsList.innerHTML = "";
   resultData.solusi.forEach((sol, index) => {
@@ -379,7 +503,9 @@ function showResult(resultData) {
 
   const now = new Date();
   const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
-  printDate.textContent = now.toLocaleDateString('id-ID', options) + " WIB";
+  if (printDate) {
+    printDate.textContent = now.toLocaleDateString('id-ID', options) + " WIB";
+  }
 }
 
 function scrollToEdukasi() {
@@ -430,14 +556,18 @@ function copyResultToClipboard() {
     const copyIcon = document.getElementById("btn-copy-icon");
     const copyText = document.getElementById("btn-copy-text");
 
-    copyIcon.className = "fa-solid fa-check text-emerald-400";
-    copyText.textContent = "Tersalin!";
+    if (copyIcon && copyText) {
+      copyIcon.className = "fa-solid fa-check text-emerald-400";
+      copyText.textContent = "Tersalin!";
+    }
 
     showToast("Laporan diagnosa berhasil disalin ke clipboard!");
 
     setTimeout(() => {
-      copyIcon.className = "fa-solid fa-copy";
-      copyText.textContent = "Salin Hasil";
+      if (copyIcon && copyText) {
+        copyIcon.className = "fa-solid fa-copy";
+        copyText.textContent = "Salin Hasil";
+      }
     }, 2000);
   }).catch(err => {
     showToast("Gagal menyalin teks.");
