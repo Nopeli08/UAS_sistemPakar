@@ -1,0 +1,61 @@
+/* ==========================================================================
+   STYLE OVERRIDES - SISTEM PAKAR DIAGNOSA ANDROID (KELOMPOK 5)
+   ========================================================================== */
+
+/* Custom Scrollbar for premium dark-mode feel */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #A3D0D4;
+}
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
+/* Specific SVG transition for the confidence gauge */
+#result-dial-fill {
+  transition: stroke-dashoffset 1s ease-out, stroke 0.3s ease;
+}
+
+/* Step fade transition animations */
+.fade-enter {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+}
+.fade-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Print Layout Optimization */
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-card {
+    background: white !important;
+    border: 1px solid #cbd5e1 !important;
+    box-shadow: none !important;
+    color: black !important;
+    padding: 0 !important;
+  }
+  .print-title {
+    color: #0f172a !important;
+  }
+  .print-text {
+    color: #334155 !important;
+  }
+  .print-border {
+    border-color: #cbd5e1 !important;
+  }
+}
