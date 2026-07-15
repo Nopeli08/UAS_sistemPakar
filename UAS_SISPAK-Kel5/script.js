@@ -4,296 +4,260 @@
 
 // 1. DATA POHON KEPUTUSAN C4.5 FLAT INDEX STRUCTURE (FIXED)
 const decisionTree = {
-  // --- LEVEL 1: PERTANYAAN UTAMA (KONDISI NYALA HP) ---
   "Q1": {
-    "pertanyaan": "Apakah Handphone dapat dinyalakan dengan normal sampai ke menu?",
-    "jika_ya": "Q2",   // Masuk ke jalur HP Hidup
-    "jika_tidak": "Q9" // Masuk ke jalur HP Mati/Restart
+    "pertanyaan": "Apakah handphone dapat dinyalakan dengan normal? (G50)",
+    "jika_ya": "Q2",
+    "jika_tidak": "Q15"
   },
- 
-  // ==========================================================================
-  // JALUR HP HIDUP (8 kerusakan: K13, K22, K32, K15, K20, K1, K3, K4)
-  // ==========================================================================
+
   "Q2": {
-    "pertanyaan": "Apakah aplikasi dan sistem operasi berjalan dengan baik tanpa lag/error?",
+    "pertanyaan": "Apakah LCD/Layar menyala normal saat HP dihidupkan? (G52)",
     "jika_ya": "Q3",
-    "jika_tidak": "Q7"
+    "jika_tidak": "Q10"
   },
+
   "Q3": {
-    "pertanyaan": "Apakah ada masalah pada output suara (speaker mati atau mic tidak merespon)?",
+    "pertanyaan": "Apakah ada kendala pada sinyal jaringan seluler Anda? (G22)",
     "jika_ya": "Q4",
-    "jika_tidak": "Q5"
+    "jika_tidak": "Q6"
   },
   "Q4": {
-    "pertanyaan": "Apakah komponen Speaker (suara media) dan Microphone mati secara bersamaan?",
-    "jika_ya": {
-      "tipe": "HARDWARE",
-      "nama": "Speaker (fisik, interface)",
-      "persentase": 95,
-      "solusi": [
-        "Periksa kebersihan lubang speaker dari debu atau kotoran.",
-        "Lakukan pengujian modul speaker fisik menggunakan hardware test menu (*#0*#).",
-        "Bawa ke teknisi untuk penggantian komponen buzzer jika kumparan putus."
-      ]
-    },
+    "pertanyaan": "Apakah muncul pesan peringatan tidak ada layanan ('No Service')? (G28)",
+    "jika_ya": "Q5",
     "jika_tidak": {
-      "tipe": "HARDWARE",
-      "nama": "Microphone",
-      "persentase": 92,
+      "kode": "K16", "nama": "IC WTR", "tipe": "HARDWARE", "persentase": 100,
       "solusi": [
-        "Bersihkan lubang mic kecil di bagian bawah bodi HP secara hati-hati.",
-        "Gunakan aplikasi perekam suara bawaan untuk memastikan ini bukan bug aplikasi pihak ketiga.",
-        "Jika suara tetap tidak terekam, modul fleksibel mic harus diganti."
+        "Periksa modul IC transceiver penerima sinyal (WTR).",
+        "Solder ulang atau ganti komponen IC WTR jika jalur sinyal terputus."
       ]
     }
   },
   "Q5": {
-    "pertanyaan": "Apakah fitur getar (vibrator) HP mati total?",
+    "pertanyaan": "Apakah SIM Card juga tidak terbaca sama sekali oleh sistem? (G23)",
     "jika_ya": {
-      "tipe": "HARDWARE",
-      "nama": "Vibrator Interface",
-      "persentase": 95,
+      "kode": "K12", "nama": "IMEI (Software Corrupt)", "tipe": "SOFTWARE", "persentase": 95,
       "solusi": [
-        "Pastikan mode getar telah diaktifkan pada pengaturan profil suara.",
-        "Periksa konektor motor vibrator pada mesin utama.",
-        "Ganti komponen dinamo getar yang sudah lemah."
-      ]
-    },
-    "jika_tidak": "Q6"
-  },
-  "Q6": {
-    "pertanyaan": "Apakah Wi-Fi tidak bisa diaktifkan ATAU Bluetooth gagal mendeteksi perangkat lain?",
-    "jika_ya": {
-      "tipe": "HARDWARE",
-      "nama": "IC WiFi/Bluetooth",
-      "persentase": 91,
-      "solusi": [
-        "Lakukan reset pengaturan jaringan (Wi-Fi & Bluetooth) pada sistem Android.",
-        "Jika salah satu modul tetap mati setelah reset, kemungkinan chip combo IC WiFi/Bluetooth bermasalah.",
-        "Lakukan reballing atau penggantian chip IC WiFi/Bluetooth di logic board."
+        "Periksa nomor IMEI dengan menekan dial *#06#.",
+        "Lakukan write ulang partisi NVRAM/EFS menggunakan Box Flasher."
       ]
     },
     "jika_tidak": {
-      "tipe": "HARDWARE",
-      "nama": "Touchscreen (Mati Sebagian)",
-      "persentase": 96,
+      "kode": "K29", "nama": "EEPROM", "tipe": "HARDWARE", "persentase": 90,
       "solusi": [
-        "Bersihkan layar dari kotoran atau air.",
-        "Aktifkan 'Tampilkan ketukan' di opsi pengembang untuk melacak area mati.",
-        "Ganti panel kaca depan/digitizer touchscreen."
+        "Lakukan flash ulang baseband atau restore data cadangan EFS.",
+        "Ganti chip EEPROM penyimpanan parameter jaringan jika rusak permanen."
       ]
     }
   },
-  "Q7": {
-    "pertanyaan": "Apakah kartu SIM (SIM Card) tiba-tiba tidak terbaca oleh sistem?",
+
+  "Q6": {
+    "pertanyaan": "Apakah slot kartu atau kuningan SIM card terindikasi rusak fisik? (G2 / G1)",
     "jika_ya": {
-      "tipe": "HARDWARE",
-      "nama": "SIM Card (Fisik)",
-      "persentase": 96,
+      "kode": "K1", "nama": "SIM Card (Kuningan/Slot Rusak)", "tipe": "HARDWARE", "persentase": 100,
       "solusi": [
-        "Coba gunakan kartu SIM lain untuk memastikan kartu lama tidak rusak.",
-        "Bersihkan kuningan pembaca di dalam slot SIM dengan cairan pembersih khusus.",
-        "Ganti satu set slot tray pembaca kartu SIM jika ada pin yang patah."
+        "Bersihkan pin kuningan pembaca kartu SIM.",
+        "Ganti modul slot tray SIM card jika ada kaki pin yang patah."
+      ]
+    },
+    "jika_tidak": "Q7"
+  },
+  "Q7": {
+    "pertanyaan": "Apakah ada masalah pada fungsionalitas Kamera? (G31 / G32)",
+    "jika_ya": {
+      "kode": "K3", "nama": "Kamera", "tipe": "HARDWARE", "persentase": 95,
+      "solusi": [
+        "Pastikan soket kamera tidak kendor di dalam motherboard.",
+        "Ganti modul kamera modular jika lensa pecah atau blur (G45)."
       ]
     },
     "jika_tidak": "Q8"
   },
   "Q8": {
-    "pertanyaan": "Apakah aplikasi kamera sering force-close, gagal dibuka, atau hasil gambar blur?",
+    "pertanyaan": "Apakah HP tiba-tiba restart terus-menerus (Booting)? (G33 / G9)",
+    "jika_ya": "Q9",
+    "jika_tidak": "Q20"
+  },
+  "Q9": {
+    "pertanyaan": "Apakah restart dipicu setelah Anda melakukan modifikasi sistem (Root/Custom ROM)? (G10 / G11)",
     "jika_ya": {
-      "tipe": "HARDWARE",
-      "nama": "Kamera (Soket Kendor)",
-      "persentase": 93,
+      "kode": "K5", "nama": "Bootloop (Gagal Sistem)", "tipe": "SOFTWARE", "persentase": 95,
       "solusi": [
-        "Periksa apakah aplikasi kamera langsung crash atau black screen.",
-        "Bongkar HP dan pastikan soket fleksibel kamera tidak kendor akibat benturan.",
-        "Ganti modul kamera modular jika lensa dalam pecah."
+        "Masuk ke Recovery Mode.",
+        "Lakukan Wipe Data / Factory Reset.",
+        "Flash ulang firmware resmi menggunakan komputer."
       ]
     },
     "jika_tidak": {
-      "tipe": "SOFTWARE",
-      "nama": "Boot Restart (Virus/Malware/Overload)",
-      "persentase": 92,
+      "kode": "K4", "nama": "Boot Restart (Sistem Overload)", "tipe": "SOFTWARE", "persentase": 90,
       "solusi": [
-        "Masuk ke Safe Mode Android dan uninstal aplikasi asing/mencurigakan yang terindikasi malware.",
-        "Hapus cache dan file sampah, serta uninstal aplikasi versi BETA penyebab overload/panas berlebih.",
-        "Lakukan factory reset jika sistem masih sering hang, crash, atau muncul iklan pop-up."
+        "Bersihkan berkas sampah (G6) dan kurangi multitasking berat (G7).",
+        "Hapus aplikasi versi BETA yang tidak stabil (G8)."
       ]
     }
   },
- 
-  // ==========================================================================
-  // JALUR HP MATI / RESTART (12 kerusakan: K8, K18, K10, K5, K12, K16, K29,
-  // K2, K24, K27, K28, K7)
-  // ==========================================================================
-  "Q9": {
-    "pertanyaan": "Apakah HP mengalami siklus mati-hidup sendiri (looping) secara terus-menerus?",
-    "jika_ya": "Q10",   // Jalur Restart Loop
-    "jika_tidak": "Q13" // Jalur Mati Total / Sinyal Hilang / Fisik
-  },
- 
-  // --- SUB-JALUR: RESTART LOOP (4 kerusakan) ---
-  "Q10": {
-    "pertanyaan": "Apakah mati total ini terjadi setelah/karena HP terkena air atau cairan?",
+
+  "Q20": {
+    "pertanyaan": "Apakah kinerja HP terasa sangat lemot atau sering nge-hang/macet? (G-x1)",
     "jika_ya": {
-      "tipe": "HARDWARE",
-      "nama": "IC Power",
-      "persentase": 95,
+      "kode": "K19", "nama": "IC RAM", "tipe": "HARDWARE", "persentase": 90,
       "solusi": [
-        "Lepaskan baterai dengan segera untuk memutus arus.",
-        "Ukur tegangan kapasitor di sekitar IC Power.",
-        "Lakukan reball atau penggantian IC Power utama."
+        "Cek penggunaan RAM lewat menu developer options, tutup aplikasi latar belakang.",
+        "Lakukan pengecekan jalur solder IC RAM; reballing atau ganti IC RAM jika hang menetap setelah factory reset."
       ]
     },
-    "jika_tidak": "Q11"
+    "jika_tidak": "Q21"
   },
-  "Q11": {
-    "pertanyaan": "Apakah saat dicolok charger, lampu indikator atau layar tidak memunculkan gambar sama sekali?",
+  "Q21": {
+    "pertanyaan": "Apakah HP susah atau tidak bisa mengisi daya, padahal kabel dan port USB terlihat normal? (G-x2)",
     "jika_ya": {
-      "tipe": "HARDWARE",
-      "nama": "IC CPU (Otak Mesin)",
-      "persentase": 91,
+      "kode": "K6", "nama": "Charging Interface", "tipe": "HARDWARE", "persentase": 90,
       "solusi": [
-        "Hubungkan ke PC, cek apakah terdeteksi driver chipset (9008/Preloader).",
-        "Lakukan pengerjaan reballing (angkat cetak kaki) chip CPU.",
-        "Ganti mesin utuh jika jalur internal board terputus."
+        "Bersihkan port USB dari debu/kotoran dengan sikat halus atau udara bertekanan.",
+        "Periksa konektor charging interface di motherboard; ganti modul jika pin sudah aus atau kendor."
+      ]
+    },
+    "jika_tidak": "Q22"
+  },
+  "Q22": {
+    "pertanyaan": "Apakah HP sering stuck di logo saat boot, gagal update sistem, atau aplikasi bawaan sering force-close? (G-x3)",
+    "jika_ya": {
+      "kode": "K9", "nama": "Software (Sistem Operasi)", "tipe": "SOFTWARE", "persentase": 90,
+      "solusi": [
+        "Coba boot ke Safe Mode untuk memastikan bukan aplikasi pihak ketiga penyebabnya.",
+        "Lakukan flashing ulang sistem operasi resmi jika masalah berlanjut setelah factory reset."
       ]
     },
     "jika_tidak": "Q12"
   },
+
+  "Q10": {
+    "pertanyaan": "Apakah layar dalam kondisi blank hitam tetapi mesin masih merespon? (G24)",
+    "jika_ya": "Q11",
+    "jika_tidak": {
+      "kode": "K20", "nama": "Touchscreen", "tipe": "HARDWARE", "persentase": 95,
+      "solusi": [
+        "Bersihkan permukaan layar sentuh.",
+        "Ganti digitizer touchscreen luar jika layar tidak merespon sentuhan (G44)."
+      ]
+    }
+  },
+  "Q11": {
+    "pertanyaan": "Apakah ada bekas benturan keras atau tertimpa benda berat? (G3 / G26)",
+    "jika_ya": {
+      "kode": "K2", "nama": "LCD (Fisik Rusak)", "tipe": "HARDWARE", "persentase": 100,
+      "solusi": [
+        "Pasang kembali soket fleksibel layar LCD yang mungkin kendor.",
+        "Ganti satu set panel LCD baru jika kaca bagian dalam pecah."
+      ]
+    },
+    "jika_tidak": {
+      "kode": "K24", "nama": "Flexi Cable", "tipe": "HARDWARE", "persentase": 90,
+      "solusi": [
+        "Periksa jalur kabel fleksibel interkoneksi mesin ke layar.",
+        "Ganti kabel fleksibel jika robek akibat pembongkaran."
+      ]
+    }
+  },
+
   "Q12": {
-    "pertanyaan": "Apakah HP tiba-tiba mati/restart saat digunakan untuk membuka aplikasi berat atau kamera?",
-    "jika_ya": {
-      "tipe": "HARDWARE",
-      "nama": "Baterai (Drop/Rusak)",
-      "persentase": 97,
-      "solusi": [
-        "Periksa apakah fisik baterai kembung.",
-        "Uji stabilitas tegangan dengan multitester (minimal 3.7 Volt).",
-        "Ganti baterai dengan yang baru dan original."
-      ]
-    },
-    "jika_tidak": {
-      "tipe": "SOFTWARE",
-      "nama": "Bootloop (Gagal Booting)",
-      "persentase": 94,
-      "solusi": [
-        "Masuk ke Recovery Mode (tombol Power + Volume Up).",
-        "Pilih 'Wipe Data / Factory Reset'; jika belum berhasil unduh Stock ROM Firmware asli sesuai tipe HP.",
-        "Flash ulang firmware menggunakan SP Flash Tool atau Odin sebelum booting ulang."
-      ]
-    }
+    "pertanyaan": "Apakah audio / suara tidak berfungsi (speaker atau microphone mati)? (G29 / G46)",
+    "jika_ya": "Q13",
+    "jika_tidak": "Q14"
   },
- 
-  // --- SUB-JALUR: TIDAK LOOPING (8 kerusakan) ---
   "Q13": {
-    "pertanyaan": "Apakah masalah utamanya adalah hilangnya sinyal seluler (No Service/Panggilan Darurat)?",
-    "jika_ya": "Q14",
-    "jika_tidak": "Q16"
-  },
- 
-  // -- Sinyal (3 kerusakan) --
-  "Q14": {
-    "pertanyaan": "Apakah nomor IMEI HP Anda hilang atau berubah menjadi 'Null / Unknown' saat dicek via *#06#?",
+    "pertanyaan": "Apakah microphone tidak berfungsi sama sekali saat merekam atau telepon? (G46)",
     "jika_ya": {
-      "tipe": "SOFTWARE",
-      "nama": "IMEI (Software Corrupt)",
-      "persentase": 95,
+      "kode": "K22", "nama": "Microphone", "tipe": "HARDWARE", "persentase": 95,
       "solusi": [
-        "Cek status IMEI melalui dial *#06#.",
-        "Lakukan write ulang data NVRAM / EFS menggunakan box flasher.",
-        "Daftarkan kembali nomor IMEI jika terblokir di database."
-      ]
-    },
-    "jika_tidak": "Q15"
-  },
-  "Q15": {
-    "pertanyaan": "Apakah setelah ganti kartu SIM baru sinyal tetap tidak muncul sama sekali?",
-    "jika_ya": {
-      "tipe": "HARDWARE",
-      "nama": "IC WTR / Transceiver",
-      "persentase": 92,
-      "solusi": [
-        "Periksa kabel antena koaksial di dalam casing.",
-        "Ganti IC Transceiver (WTR/MT) penerima sinyal.",
-        "Solder ulang jalur antena penguat daya (RF)."
+        "Bersihkan lubang mic bawah bodi HP.",
+        "Ganti papan sub-board mic jika jalur konektor terputus."
       ]
     },
     "jika_tidak": {
-      "tipe": "SOFTWARE",
-      "nama": "EEPROM (Data Sinyal)",
-      "persentase": 89,
+      "kode": "K13", "nama": "Speaker", "tipe": "HARDWARE", "persentase": 92,
       "solusi": [
-        "Flash ulang baseband firmware.",
-        "Restore partisi backup modem via TWRP.",
-        "Lakukan repair partisi modem di sistem."
+        "Uji speaker menggunakan kode tes hardware bawaan.",
+        "Ganti modul buzzer speaker luar jika suara pecah/mati total (G30)."
       ]
     }
   },
- 
-  // -- Non-sinyal / fisik (5 kerusakan) --
+  "Q14": {
+    "pertanyaan": "Apakah Wi-Fi atau Bluetooth tidak bisa dinyalakan? (G34 / G35)",
+    "jika_ya": {
+      "kode": "K15", "nama": "IC WiFi / Bluetooth", "tipe": "HARDWARE", "persentase": 95,
+      "solusi": [
+        "Lakukan reset pengaturan jaringan di menu Android.",
+        "Ganti chip IC Wi-Fi jika statusnya abu-abu (cannot turn on)."
+      ]
+    },
+    "jika_tidak": {
+      "kode": "K32", "nama": "Vibrator Interface", "tipe": "HARDWARE", "persentase": 90,
+      "solusi": [
+        "Pastikan getar aktif di menu pengaturan profil suara.",
+        "Ganti motor dinamo penggetar jika getaran terasa lemah atau mati (G56)."
+      ]
+    }
+  },
+
+  "Q15": {
+    "pertanyaan": "Apakah handphone dalam kondisi benar-benar mati total? (G47)",
+    "jika_ya": "Q16",
+    "jika_tidak": {
+      "kode": "K10", "nama": "Baterai (Drop / Rusak)", "tipe": "HARDWARE", "persentase": 90,
+      "solusi": [
+        "Lakukan pengecekan fisik baterai apakah menggembung (G43).",
+        "Ukur tegangan baterai dan ganti dengan suku cadang original."
+      ]
+    }
+  },
+
   "Q16": {
-    "pertanyaan": "Apakah layar HP Anda mati (hitam), tetapi getar atau suara notifikasi masih aktif?",
+    "pertanyaan": "Apakah HP mati total ini terjadi sesaat setelah kemasukan air? (G4)",
     "jika_ya": "Q17",
     "jika_tidak": "Q18"
   },
   "Q17": {
-    "pertanyaan": "Apakah layar HP tersebut retak di bagian dalam setelah insiden terjatuh?",
+    "pertanyaan": "Apakah saat di-charge HP terasa panas berlebih dan tidak bisa mengisi daya? (G9 / G14)",
     "jika_ya": {
-      "tipe": "HARDWARE",
-      "nama": "LCD (Fisik Rusak)",
-      "persentase": 96,
+      "kode": "K7", "nama": "Hardbrick", "tipe": "HARDWARE", "persentase": 100,
       "solusi": [
-        "Periksa keretakan kaca LCD bagian dalam.",
-        "Pasang kembali soket LCD yang mungkin kendor.",
-        "Ganti satu set panel LCD + Touchscreen."
+        "Segera lepas baterai dan lakukan pengeringan dengan pembersih ultrasonik.",
+        "Lakukan pengerjaan direct ISP atau flashing bootloader via alat khusus."
       ]
     },
     "jika_tidak": {
-      "tipe": "HARDWARE",
-      "nama": "Flexi Cable",
-      "persentase": 91,
+      "kode": "K8", "nama": "IC Power", "tipe": "HARDWARE", "persentase": 90,
       "solusi": [
-        "Bersihkan pin konektor fleksibel penghubung layar.",
-        "Periksa apakah ada lipatan tajam yang memutus jalur fleksibel.",
-        "Ganti kabel fleksibel penghubung mesin atas-bawah."
+        "Ukur tegangan kapasitor di sekitar IC Power.",
+        "Lakukan reballing atau ganti chip IC Power jika terjadi korsleting."
       ]
     }
   },
   "Q18": {
-    "pertanyaan": "Apakah tombol Power terasa empuk/tidak klik saat ditekan secara fisik?",
-    "jika_ya": {
-      "tipe": "HARDWARE",
-      "nama": "Power On Key",
-      "persentase": 94,
+    "pertanyaan": "Apakah saat menekan tombol power, sama sekali tidak ada respon getar atau tanda menyala? (G36)",
+    "jika_ya": "Q19",
+    "jika_tidak": {
+      "kode": "K28", "nama": "IC UEM (Power Distribution)", "tipe": "HARDWARE", "persentase": 85,
       "solusi": [
-        "Hubungkan kedua pin power di mesin menggunakan pinset untuk menyalakan langsung.",
-        "Bersihkan membran tombol dari karat.",
-        "Ganti flexi switch tombol power."
+        "Lakukan penelusuran jalur tegangan masukan.",
+        "Ganti IC UEM (Universal Energy Module) yang mengatur distribusi daya."
       ]
-    },
-    "jika_tidak": "Q19"
+    }
   },
   "Q19": {
-    "pertanyaan": "Apakah komputer/laptop masih mendeteksi perangkat Anda saat tersambung kabel data?",
+    "pertanyaan": "Apakah HP sempat menampilkan pesan error 'Contact Service' sebelum akhirnya mati total? (G51)",
     "jika_ya": {
-      "tipe": "HARDWARE",
-      "nama": "IC UEM (Power Distribution)",
-      "persentase": 88,
+      "kode": "K18", "nama": "IC CPU", "tipe": "HARDWARE", "persentase": 95,
       "solusi": [
-        "Uji arus pengisian daya menggunakan USB Ammeter.",
-        "Perbaiki jalur distribusi tegangan utama.",
-        "Ganti komponen IC UEM yang mengontrol daya sistem."
+        "Sambungkan HP ke PC menggunakan kabel data, periksa driver koneksi chip.",
+        "Lakukan reballing kaki-kaki chip CPU."
       ]
     },
     "jika_tidak": {
-      "tipe": "HARDWARE",
-      "nama": "Hardbrick (Mati Total)",
-      "persentase": 90,
+      "kode": "K27", "nama": "Power On Key", "tipe": "HARDWARE", "persentase": 90,
       "solusi": [
-        "Gunakan Test Point untuk memaksa masuk EDL Mode.",
-        "Lakukan flashing bootloader via alat JTAG.",
-        "Ganti modul memori internal jika tidak bisa di-write."
+        "Solder ulang atau bersihkan membran internal switch tombol power.",
+        "Ganti satu set fleksibel tombol on/off luar-dalam."
       ]
     }
   }
