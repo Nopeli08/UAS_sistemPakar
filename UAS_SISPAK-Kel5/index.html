@@ -366,35 +366,14 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
-          <!-- DIAL / PROGRESS RING ON LEFT -->
-          <div class="md:col-span-4 flex flex-col items-center justify-center text-center space-y-3">
-            <div class="relative w-36 h-36 flex items-center justify-center">
-              
-              <!-- Background Circle -->
-              <svg class="w-full h-full transform -rotate-90">
-                <circle cx="72" cy="72" r="62" stroke-width="8" stroke="currentColor" class="text-slate-700/40 print:text-slate-100" fill="transparent" />
-                <circle id="result-dial-fill" cx="72" cy="72" r="62" stroke-width="10" stroke="url(#gradient)" stroke-dasharray="390" stroke-dashoffset="100" stroke-linecap="round" fill="transparent" class="transition-all duration-1000 ease-out" />
-                
-                <defs>
-                  <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#f43f5e" id="gradient-start" />
-                    <stop offset="100%" stop-color="#fb923c" id="gradient-end" />
-                  </linearGradient>
-                </defs>
-              </svg>
-
-              <!-- Text Inside Dial -->
-              <div class="absolute flex flex-col items-center justify-center">
-                <span id="result-confidence-text" class="text-3xl font-extrabold font-outfit text-white print:text-slate-950">94%</span>
-                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest print:text-slate-500">Keyakinan</span>
-              </div>
-            </div>
+          <!-- DIAGNOSIS RESULT ON LEFT -->
+          <div class="md:col-span-4 flex flex-col items-center justify-center text-center space-y-2">
+            <span class="text-xl font-bold text-slate-400 uppercase tracking-wider print:text-slate-500">
+              Klasifikasi Masalah
+            </span>
             
-            <div class="space-y-1">
-              <span class="text-xs font-bold text-slate-400 uppercase tracking-wider print:text-slate-500">Klasifikasi Masalah</span>
-              <div id="result-badge" class="px-3 py-1 rounded-full text-xs font-extrabold tracking-wider bg-rose-500/10 border border-rose-500/30 text-rose-400 uppercase inline-block">
-                HARDWARE
-              </div>
+            <!-- Badge Status Utama -->
+            <div id="result-badge" class="px-5 py-2 rounded-xl text-2xl font-extrabold tracking-widest bg-rose-500/10 border border-rose-500/30 text-rose-400 uppercase inline-block shadow-lg shadow-rose-900/10">
             </div>
           </div>
 
