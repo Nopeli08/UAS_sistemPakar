@@ -5,101 +5,91 @@
 // 1. DATA POHON KEPUTUSAN C4.5 FLAT INDEX STRUCTURE (FIXED)
 const decisionTree = {
   "Q1": {
-    "pertanyaan": "Apakah handphone dapat dinyalakan dengan normal? (G50)",
+    "pertanyaan": "Apakah handphone dapat dinyalakan dengan normal?",
     "jika_ya": "Q2",
     "jika_tidak": "Q15"
   },
-
+ 
   "Q2": {
-    "pertanyaan": "Apakah LCD/Layar menyala normal saat HP dihidupkan? (G52)",
+    "pertanyaan": "Apakah LCD/Layar menyala normal saat HP dihidupkan?",
     "jika_ya": "Q3",
     "jika_tidak": "Q10"
   },
-
+ 
   "Q3": {
-    "pertanyaan": "Apakah ada kendala pada sinyal jaringan seluler Anda? (G22)",
+    "pertanyaan": "Apakah ada kendala pada sinyal jaringan seluler Anda?",
     "jika_ya": "Q4",
     "jika_tidak": "Q6"
   },
   "Q4": {
-    "pertanyaan": "Apakah muncul pesan peringatan tidak ada layanan ('No Service')? (G28)",
+    "pertanyaan": "Apakah muncul pesan peringatan tidak ada layanan ('No Service')?",
     "jika_ya": "Q5",
     "jika_tidak": {
-      "kode": "K16", "nama": "IC WTR", "tipe": "HARDWARE", "persentase": 100,
+      "kode": "K13", "nama": "IC WTR", "tipe": "HARDWARE", "persentase": 100,
       "solusi": [
-        "Periksa modul IC transceiver penerima sinyal (WTR).",
-        "Solder ulang atau ganti komponen IC WTR jika jalur sinyal terputus."
+        "Cek tegangan sinyal (Nengsih & Putra, 2020)",
+        "Ganti IC WTR untuk mengatasi masalah tidak ada sinyal atau sinyal lemah."
       ]
     }
   },
   "Q5": {
-    "pertanyaan": "Apakah SIM Card juga tidak terbaca sama sekali oleh sistem? (G23)",
+    "pertanyaan": "Apakah SIM Card juga tidak terbaca sama sekali oleh sistem?",
     "jika_ya": {
-      "kode": "K12", "nama": "IMEI (Software Corrupt)", "tipe": "SOFTWARE", "persentase": 95,
+      "kode": "K10", "nama": "IMEI (Software Corrupt)", "tipe": "SOFTWARE", "persentase": 95,
       "solusi": [
-        "Periksa nomor IMEI dengan menekan dial *#06#.",
-        "Lakukan write ulang partisi NVRAM/EFS menggunakan Box Flasher."
+        "Masukkan atau modifikasi IMEI baru (Abdullah, et al., 2024).",
+        "Write ulang IMEI menggunakan box/dongle software khusus sesuai chipset (mediatek/snapdragon).",
+        "Gejala pendukung: nomor IMEI hilang atau berubah menjadi 'Null/Unknown' (G14)."
       ]
     },
     "jika_tidak": {
-      "kode": "K29", "nama": "EEPROM", "tipe": "HARDWARE", "persentase": 90,
+      "kode": "K21", "nama": "EEPROM", "tipe": "HARDWARE", "persentase": 90,
       "solusi": [
-        "Lakukan flash ulang baseband atau restore data cadangan EFS.",
-        "Ganti chip EEPROM penyimpanan parameter jaringan jika rusak permanen."
+        "Flash ulang partisi NVRAM/EFS, atau ganti IC EEPROM/SPI jika tidak bisa menyimpan data sistem.",
+        "Gejala pendukung: setelah diganti kartu SIM baru, sinyal tetap tidak muncul sama sekali (G15)."
       ]
     }
   },
-
+ 
   "Q6": {
-    "pertanyaan": "Apakah slot kartu atau kuningan SIM card terindikasi rusak fisik? (G2 / G1)",
+    "pertanyaan": "Apakah slot kartu atau kuningan SIM card terindikasi rusak fisik? (G23)",
     "jika_ya": {
       "kode": "K1", "nama": "SIM Card (Kuningan/Slot Rusak)", "tipe": "HARDWARE", "persentase": 100,
       "solusi": [
-        "Bersihkan pin kuningan pembaca kartu SIM.",
-        "Ganti modul slot tray SIM card jika ada kaki pin yang patah."
+        "Bersihkan kuningan SIM, perbaiki pin slot card yang bengkok, atau ganti modul slot SIM."
       ]
     },
     "jika_tidak": "Q7"
   },
   "Q7": {
-    "pertanyaan": "Apakah ada masalah pada fungsionalitas Kamera? (G31 / G32)",
+    "pertanyaan": "Apakah ada masalah pada fungsionalitas Kamera? (G8)",
     "jika_ya": {
       "kode": "K3", "nama": "Kamera", "tipe": "HARDWARE", "persentase": 95,
       "solusi": [
-        "Pastikan soket kamera tidak kendor di dalam motherboard.",
-        "Ganti modul kamera modular jika lensa pecah atau blur (G45)."
+        "Cek fungsi kamera (Nengsih & Putra, 2020).",
+        "Ganti kamera (Abdullah, et al., 2024).",
+        "Bersihkan lensa, cek tegangan supply kamera, atau ganti modul kamera depan/belakang."
       ]
     },
     "jika_tidak": "Q8"
   },
   "Q8": {
-    "pertanyaan": "Apakah HP tiba-tiba restart terus-menerus (Booting)? (G33 / G9)",
-    "jika_ya": "Q9",
-    "jika_tidak": "Q20"
-  },
-  "Q9": {
-    "pertanyaan": "Apakah restart dipicu setelah Anda melakukan modifikasi sistem (Root/Custom ROM)? (G10 / G11)",
+    "pertanyaan": "Apakah HP tiba-tiba restart terus-menerus (Booting)? (G9)",
     "jika_ya": {
-      "kode": "K5", "nama": "Bootloop (Gagal Sistem)", "tipe": "SOFTWARE", "persentase": 95,
-      "solusi": [
-        "Masuk ke Recovery Mode.",
-        "Lakukan Wipe Data / Factory Reset.",
-        "Flash ulang firmware resmi menggunakan komputer."
-      ]
-    },
-    "jika_tidak": {
       "kode": "K4", "nama": "Boot Restart (Sistem Overload)", "tipe": "SOFTWARE", "persentase": 90,
       "solusi": [
-        "Bersihkan berkas sampah (G6) dan kurangi multitasking berat (G7).",
-        "Hapus aplikasi versi BETA yang tidak stabil (G8)."
+        "Reboot software (Nengsih & Putra, 2020).",
+        "Bersihkan cache sistem, flash ulang firmware, atau cek tombol power yang short/tertekan.",
+        "Gejala pendukung: HP tiba-tiba mati/restart saat membuka aplikasi berat (G12)."
       ]
-    }
+    },
+    "jika_tidak": "Q20"
   },
-
+ 
   "Q20": {
-    "pertanyaan": "Apakah kinerja HP terasa sangat lemot atau sering nge-hang/macet? (G-x1)",
+    "pertanyaan": "Apakah kinerja HP terasa sangat lemot atau sering nge-hang/macet? (G20)",
     "jika_ya": {
-      "kode": "K19", "nama": "IC RAM", "tipe": "HARDWARE", "persentase": 90,
+      "kode": "K15", "nama": "IC RAM", "tipe": "HARDWARE", "persentase": 90,
       "solusi": [
         "Cek penggunaan RAM lewat menu developer options, tutup aplikasi latar belakang.",
         "Lakukan pengecekan jalur solder IC RAM; reballing atau ganti IC RAM jika hang menetap setelah factory reset."
@@ -108,156 +98,158 @@ const decisionTree = {
     "jika_tidak": "Q21"
   },
   "Q21": {
-    "pertanyaan": "Apakah HP susah atau tidak bisa mengisi daya, padahal kabel dan port USB terlihat normal? (G-x2)",
+    "pertanyaan": "Apakah HP susah atau tidak bisa mengisi daya, padahal kabel dan port USB terlihat normal? (G21)",
     "jika_ya": {
-      "kode": "K6", "nama": "Charging Interface", "tipe": "HARDWARE", "persentase": 90,
+      "kode": "K5", "nama": "Charging Interface", "tipe": "HARDWARE", "persentase": 90,
       "solusi": [
-        "Bersihkan port USB dari debu/kotoran dengan sikat halus atau udara bertekanan.",
-        "Periksa konektor charging interface di motherboard; ganti modul jika pin sudah aus atau kendor."
+        "Ganti socket charger (Nengsih & Putra, 2020)"
       ]
     },
     "jika_tidak": "Q22"
   },
   "Q22": {
-    "pertanyaan": "Apakah HP sering stuck di logo saat boot, gagal update sistem, atau aplikasi bawaan sering force-close? (G-x3)",
+    "pertanyaan": "Apakah HP sering stuck di logo saat boot, gagal update sistem, atau aplikasi bawaan sering force-close? (G22)",
     "jika_ya": {
-      "kode": "K9", "nama": "Software (Sistem Operasi)", "tipe": "SOFTWARE", "persentase": 90,
+      "kode": "K8", "nama": "Software (Sistem Operasi)", "tipe": "SOFTWARE", "persentase": 90,
       "solusi": [
-        "Coba boot ke Safe Mode untuk memastikan bukan aplikasi pihak ketiga penyebabnya.",
-        "Lakukan flashing ulang sistem operasi resmi jika masalah berlanjut setelah factory reset."
+        "Reboot software (Nengsih & Putra, 2020)"
       ]
     },
     "jika_tidak": "Q12"
   },
-
+ 
   "Q10": {
-    "pertanyaan": "Apakah layar dalam kondisi blank hitam tetapi mesin masih merespon? (G24)",
+    "pertanyaan": "Apakah layar dalam kondisi blank hitam tetapi mesin masih merespon? (G16)",
     "jika_ya": "Q11",
     "jika_tidak": {
-      "kode": "K20", "nama": "Touchscreen", "tipe": "HARDWARE", "persentase": 95,
+      "kode": "K16", "nama": "Touchscreen", "tipe": "HARDWARE", "persentase": 95,
       "solusi": [
-        "Bersihkan permukaan layar sentuh.",
-        "Ganti digitizer touchscreen luar jika layar tidak merespon sentuhan (G44)."
+        "Cek flexibel (Nengsih & Putra, 2020).",
+        "Cek kelurusan/kebersihan fleksibel, re-solder konektor FPC, atau ganti panel touchscreen/LCD."
       ]
     }
   },
   "Q11": {
-    "pertanyaan": "Apakah ada bekas benturan keras atau tertimpa benda berat? (G3 / G26)",
+    "pertanyaan": "Apakah ada bekas benturan keras atau tertimpa benda berat? (G17)",
     "jika_ya": {
       "kode": "K2", "nama": "LCD (Fisik Rusak)", "tipe": "HARDWARE", "persentase": 100,
       "solusi": [
-        "Pasang kembali soket fleksibel layar LCD yang mungkin kendor.",
-        "Ganti satu set panel LCD baru jika kaca bagian dalam pecah."
+        "Cek arus LCD layar dan flexibel (Nengsih & Putra, 2020).",
+        "Ganti LCD (Abdullah, et al., 2024).",
+        "Ganti satu set LCD jika terdapat garis, pecah fisik, atau lampu latar mati."
       ]
     },
     "jika_tidak": {
-      "kode": "K24", "nama": "Flexi Cable", "tipe": "HARDWARE", "persentase": 90,
+      "kode": "K18", "nama": "Flexi Cable", "tipe": "HARDWARE", "persentase": 90,
       "solusi": [
-        "Periksa jalur kabel fleksibel interkoneksi mesin ke layar.",
-        "Ganti kabel fleksibel jika robek akibat pembongkaran."
+        "Cek flexibel (Nengsih & Putra, 2020).",
+        "Ganti kabel flexibel penghubung antar board (main sub yang putus atau aus)."
       ]
     }
   },
-
+ 
   "Q12": {
-    "pertanyaan": "Apakah audio / suara tidak berfungsi (speaker atau microphone mati)? (G29 / G46)",
+    "pertanyaan": "Apakah audio / suara tidak berfungsi (speaker atau microphone mati)? (G3)",
     "jika_ya": "Q13",
     "jika_tidak": "Q14"
   },
   "Q13": {
-    "pertanyaan": "Apakah microphone tidak berfungsi sama sekali saat merekam atau telepon? (G46)",
+    "pertanyaan": "Apakah microphone tidak berfungsi sama sekali saat merekam atau telepon? (G4)",
     "jika_ya": {
-      "kode": "K22", "nama": "Microphone", "tipe": "HARDWARE", "persentase": 95,
+      "kode": "K17", "nama": "Microphone", "tipe": "HARDWARE", "persentase": 95,
       "solusi": [
-        "Bersihkan lubang mic bawah bodi HP.",
-        "Ganti papan sub-board mic jika jalur konektor terputus."
+        "Cek lubang mic dari sumbatan, re-solder konektor mic atau ganti modul mic."
       ]
     },
     "jika_tidak": {
-      "kode": "K13", "nama": "Speaker", "tipe": "HARDWARE", "persentase": 92,
+      "kode": "K11", "nama": "Speaker", "tipe": "HARDWARE", "persentase": 92,
       "solusi": [
-        "Uji speaker menggunakan kode tes hardware bawaan.",
-        "Ganti modul buzzer speaker luar jika suara pecah/mati total (G30)."
+        "Cek tahanan kaki speaker pada mesin (Nengsih & Putra, 2020).",
+        "Bersihkan debu speaker, cek jalur audio, atau ganti komponen speaker fisik jika robek/mati."
       ]
     }
   },
   "Q14": {
-    "pertanyaan": "Apakah Wi-Fi atau Bluetooth tidak bisa dinyalakan? (G34 / G35)",
+    "pertanyaan": "Apakah Wi-Fi atau Bluetooth tidak bisa dinyalakan? (G6)",
     "jika_ya": {
-      "kode": "K15", "nama": "IC WiFi / Bluetooth", "tipe": "HARDWARE", "persentase": 95,
+      "kode": "K12", "nama": "IC WiFi / Bluetooth", "tipe": "HARDWARE", "persentase": 95,
       "solusi": [
-        "Lakukan reset pengaturan jaringan di menu Android.",
-        "Ganti chip IC Wi-Fi jika statusnya abu-abu (cannot turn on)."
+        "Cek tegangan sinyal (Nengsih & Putra, 2020)",
+        "Ganti WiFi/Bluetooth, dan periksa jalur antena sinyal nirkabel."
       ]
     },
     "jika_tidak": {
-      "kode": "K32", "nama": "Vibrator Interface", "tipe": "HARDWARE", "persentase": 90,
+      "kode": "K22", "nama": "Vibrator Interface", "tipe": "HARDWARE", "persentase": 90,
       "solusi": [
-        "Pastikan getar aktif di menu pengaturan profil suara.",
-        "Ganti motor dinamo penggetar jika getaran terasa lemah atau mati (G56)."
+        "Cek motor gelar (vibrator), bersihkan elastisnya, atau ganti motor vibrator baru.",
+        "Gejala pendukung: fitur getar (vibrator) handphone mati total (G5)."
       ]
     }
   },
-
+ 
   "Q15": {
-    "pertanyaan": "Apakah handphone dalam kondisi benar-benar mati total? (G47)",
+    "pertanyaan": "Apakah handphone dalam kondisi benar-benar mati total?",
     "jika_ya": "Q16",
     "jika_tidak": {
-      "kode": "K10", "nama": "Baterai (Drop / Rusak)", "tipe": "HARDWARE", "persentase": 90,
+      "kode": "K9", "nama": "Baterai (Drop / Rusak)", "tipe": "HARDWARE", "persentase": 90,
       "solusi": [
-        "Lakukan pengecekan fisik baterai apakah menggembung (G43).",
-        "Ukur tegangan baterai dan ganti dengan suku cadang original."
+        "Cek tegangan arus power (Nengsih & Putra, 2020).",
+        "Ganti baterai (Abdullah, et al., 2024).",
+        "Cek socket baterai, atau ganti sel baterai baru jika sudah kembung/drop."
       ]
     }
   },
-
+ 
   "Q16": {
-    "pertanyaan": "Apakah HP mati total ini terjadi sesaat setelah kemasukan air? (G4)",
+    "pertanyaan": "Apakah HP mati total ini terjadi sesaat setelah kemasukan air? (G10)",
     "jika_ya": "Q17",
     "jika_tidak": "Q18"
   },
   "Q17": {
-    "pertanyaan": "Apakah saat di-charge HP terasa panas berlebih dan tidak bisa mengisi daya? (G9 / G14)",
+    "pertanyaan": "Apakah saat di-charge HP terasa panas berlebih dan tidak bisa mengisi daya?",
     "jika_ya": {
-      "kode": "K7", "nama": "Hardbrick", "tipe": "HARDWARE", "persentase": 100,
+      "kode": "K6", "nama": "Hardbrick", "tipe": "HARDWARE", "persentase": 100,
       "solusi": [
-        "Segera lepas baterai dan lakukan pengeringan dengan pembersih ultrasonik.",
-        "Lakukan pengerjaan direct ISP atau flashing bootloader via alat khusus."
+        "Lakukan perbaikan via test point (EDL Mode), direct ISP atau ganti IC EMMC/UFS.",
+        "Gejala pendukung: saat dicolok charger, gambar petir tidak muncul (G11)."
       ]
     },
     "jika_tidak": {
-      "kode": "K8", "nama": "IC Power", "tipe": "HARDWARE", "persentase": 90,
+      "kode": "K7", "nama": "IC Power", "tipe": "HARDWARE", "persentase": 90,
       "solusi": [
-        "Ukur tegangan kapasitor di sekitar IC Power.",
-        "Lakukan reballing atau ganti chip IC Power jika terjadi korsleting."
+        "Cek tegangan arus power (Nengsih & Putra, 2020).",
+        "Ganti IC Power (Abdullah, et al., 2024)",
+        "Periksa arus konsumsi daya, ganti IC Power (PMIC) jika tegangan drop.",
+        "Gejala pendukung: saat dicolok charger, gambar petir tidak muncul (G11)."
       ]
     }
   },
   "Q18": {
-    "pertanyaan": "Apakah saat menekan tombol power, sama sekali tidak ada respon getar atau tanda menyala? (G36)",
+    "pertanyaan": "Apakah saat menekan tombol power, sama sekali tidak ada respon getar atau tanda menyala? (G18)",
     "jika_ya": "Q19",
     "jika_tidak": {
-      "kode": "K28", "nama": "IC UEM (Power Distribution)", "tipe": "HARDWARE", "persentase": 85,
+      "kode": "K20", "nama": "IC UEM (Power Distribution)", "tipe": "HARDWARE", "persentase": 85,
       "solusi": [
-        "Lakukan penelusuran jalur tegangan masukan.",
-        "Ganti IC UEM (Universal Energy Module) yang mengatur distribusi daya."
+        "Cek tegangan arus power (Nengsih & Putra, 2020).",
+        "Reball atau ganti IC UEM (Universal Energy Module) yang mengatur manajemen daya dan pengisian."
       ]
     }
   },
   "Q19": {
-    "pertanyaan": "Apakah HP sempat menampilkan pesan error 'Contact Service' sebelum akhirnya mati total? (G51)",
+    "pertanyaan": "Apakah HP sempat menampilkan pesan error 'Contact Service' sebelum akhirnya mati total?",
     "jika_ya": {
-      "kode": "K18", "nama": "IC CPU", "tipe": "HARDWARE", "persentase": 95,
+      "kode": "K14", "nama": "IC CPU", "tipe": "HARDWARE", "persentase": 95,
       "solusi": [
-        "Sambungkan HP ke PC menggunakan kabel data, periksa driver koneksi chip.",
-        "Lakukan reballing kaki-kaki chip CPU."
+        "Cek tegangan arus power (Nengsih & Putra, 2020).",
+        "Ganti CPU jika terjadi corrupt data berat/mati total karena overheat.",
+        "Gejala pendukung: komputer/laptop masih mendeteksi perangkat saat tersambung kabel data (G19)."
       ]
     },
     "jika_tidak": {
-      "kode": "K27", "nama": "Power On Key", "tipe": "HARDWARE", "persentase": 90,
+      "kode": "K19", "nama": "Power On Key", "tipe": "HARDWARE", "persentase": 90,
       "solusi": [
-        "Solder ulang atau bersihkan membran internal switch tombol power.",
-        "Ganti satu set fleksibel tombol on/off luar-dalam."
+        "Cek flexibel (Nengsih & Putra, 2020).",
+        "Bersihkan switch tombol, ganti membran tombol power, atau ganti satu set flexibel power."
       ]
     }
   }

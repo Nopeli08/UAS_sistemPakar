@@ -112,11 +112,11 @@
         <!-- INFO STATS OR CHIPS -->
         <div class="grid grid-cols-3 gap-4 pt-6 border-t border-slate-800/60 max-w-lg">
           <div>
-            <span class="block text-2xl font-bold font-outfit text-indigo-300">8</span>
+            <span class="block text-2xl font-bold font-outfit text-indigo-300">23</span>
             <span class="text-xs text-slate-400">Jenis Kerusakan</span>
           </div>
           <div>
-            <span class="block text-2xl font-bold font-outfit text-teal-400">12+</span>
+            <span class="block text-2xl font-bold font-outfit text-teal-400">20+</span>
             <span class="text-xs text-slate-400">Gejala Dianalisis</span>
           </div>
           <div>
@@ -141,52 +141,138 @@
           <div class="space-y-4">
             <!-- Hardware -->
             <div>
-              <span class="text-xs font-bold text-rose-400 uppercase tracking-widest flex items-center space-x-1">
-                <span class="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse"></span>
-                <span>Klasifikasi Hardware</span>
-              </span>
-              <ul class="mt-1 grid grid-cols-2 gap-2 text-xs text-slate-300">
-                <li class="bg-slate-900/60 p-2 rounded border border-slate-800 flex items-center space-x-1.5">
-                  <i class="fa-solid fa-battery-quarter text-rose-400"></i>
-                  <span>Baterai Drop/Kembung</span>
-                </li>
-                <li class="bg-slate-900/60 p-2 rounded border border-slate-800 flex items-center space-x-1.5">
-                  <i class="fa-solid fa-mobile-screen-button text-rose-400"></i>
-                  <span>Layar/LCD & Touch</span>
-                </li>
-                <li class="bg-slate-900/60 p-2 rounded border border-slate-800 flex items-center space-x-1.5">
-                  <i class="fa-solid fa-plug text-rose-400"></i>
-                  <span>Port Charger Rusak</span>
-                </li>
-                <li class="bg-slate-900/60 p-2 rounded border border-slate-800 flex items-center space-x-1.5">
-                  <i class="fa-solid fa-microchip text-rose-400"></i>
-                  <span>IC Power Motherboard</span>
-                </li>
-              </ul>
+            <span class="text-xs font-bold text-rose-400 uppercase tracking-widest flex items-center space-x-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse"></span>
+              <span>Klasifikasi Hardware</span>
+            </span>
+            
+            <ul class="mt-2 grid grid-cols-2 gap-2 text-xs text-slate-300">
+              <!-- K1 -->
+              <li class="bg-slate-900/60 p-2 rounded border border-slate-800 flex items-center space-x-1.5">
+                <i class="fa-solid fa-volume-high text-rose-400 w-4 text-center"></i>
+                <span>K1: Speaker (Fisik/Interface)</span>
+              </li>
+              <!-- K2 -->
+              <li class="bg-slate-900/60 p-2 rounded border border-slate-800 flex items-center space-x-1.5">
+                <i class="fa-solid fa-microphone text-rose-400 w-4 text-center"></i>
+                <span>K2: Microphone</span>
+              </li>
+              <!-- K3 -->
+              <li class="bg-slate-900/60 p-2 rounded border border-slate-800 flex items-center space-x-1.5">
+              <i class="fa-solid fa-wave-square text-rose-400 w-4 text-center"></i>
+              <span>K3: Vibrator Interface</span>
+              </li>
+              </li>
+              <!-- K4 -->
+              <li class="bg-slate-900/60 p-2 rounded border border-slate-800 flex items-center space-x-1.5">
+                <i class="fa-solid fa-wifi text-rose-400 w-4 text-center"></i>
+                <span>K4: IC WiFi / Bluetooth</span>
+              </li>
+              <!-- K5 -->
+              <li class="bg-slate-900/60 p-2 rounded border border-slate-800 flex items-center space-x-1.5">
+                <i class="fa-solid fa-hand-pointer text-rose-400 w-4 text-center"></i>
+                <span>K5: Touchscreen</span>
+              </li>
+              <!-- K6 -->
+              <li class="bg-slate-900/60 p-2 rounded border border-slate-800 flex items-center space-x-1.5">
+                <i class="fa-solid fa-sd-card text-rose-400 w-4 text-center"></i>
+                <span>K6: Slot SIM Card</span>
+              </li>
+              <!-- K7 -->
+              <li class="bg-slate-900/60 p-2 rounded border border-slate-800 flex items-center space-x-1.5">
+                <i class="fa-solid fa-camera text-rose-400 w-4 text-center"></i>
+                <span>K7: Kamera</span>
+              </li>
+              <!-- K9 -->
+              <li class="bg-slate-900/60 p-2 rounded border border-slate-800 flex items-center space-x-1.5">
+                <i class="fa-solid fa-bolt text-rose-400 w-4 text-center"></i>
+                <span>K9: IC Power</span>
+              </li>
+              <!-- K10 -->
+              <li class="bg-slate-900/60 p-2 rounded border border-slate-800 flex items-center space-x-1.5">
+                <i class="fa-solid fa-microchip text-rose-400 w-4 text-center"></i>
+                <span>K10: IC CPU</span>
+              </li>
+              <!-- K11 -->
+              <li class="bg-slate-900/60 p-2 rounded border border-slate-800 flex items-center space-x-1.5">
+                <i class="fa-solid fa-battery-three-quarters text-rose-400 w-4 text-center"></i>
+                <span>K11: Baterai</span>
+              </li>
+              <!-- K14 -->
+              <li class="bg-slate-900/60 p-2 rounded border border-slate-800 flex items-center space-x-1.5">
+                <i class="fa-solid fa-signal text-rose-400 w-4 text-center"></i>
+                <span>K14: IC WTR (Sinyal)</span>
+              </li>
+              <!-- K16 -->
+              <li class="bg-slate-900/60 p-2 rounded border border-slate-800 flex items-center space-x-1.5">
+                <i class="fa-solid fa-mobile-screen-button text-rose-400 w-4 text-center"></i>
+                <span>K16: LCD</span>
+              </li>
+              <!-- K17 -->
+              <li class="bg-slate-900/60 p-2 rounded border border-slate-800 flex items-center space-x-1.5">
+                <i class="fa-solid fa-bezier-curve text-rose-400 w-4 text-center"></i>
+                <span>K17: Flexi Cable</span>
+              </li>
+              <!-- K18 -->
+              <li class="bg-slate-900/60 p-2 rounded border border-slate-800 flex items-center space-x-1.5">
+                <i class="fa-solid fa-power-off text-rose-400 w-4 text-center"></i>
+                <span>K18: Power On Key</span>
+              </li>
+              <!-- K19 -->
+              <li class="bg-slate-900/60 p-2 rounded border border-slate-800 flex items-center space-x-1.5">
+                <i class="fa-solid fa-microchip text-rose-400 w-4 text-center"></i>
+                <span>K19: IC UEM</span>
+              </li>
+              <!-- K20 -->
+              <li class="bg-slate-900/60 p-2 rounded border border-slate-800 flex items-center space-x-1.5">
+                <i class="fa-solid fa-triangle-exclamation text-rose-400 w-4 text-center"></i>
+                <span>K20: Hardbrick</span>
+              </li>
+              <!-- K21 -->
+              <li class="bg-slate-900/60 p-2 rounded border border-slate-800 flex items-center space-x-1.5">
+                <i class="fa-solid fa-memory text-rose-400 w-4 text-center"></i>
+                <span>K21: IC RAM</span>
+              </li>
+              <!-- K22 -->
+              <li class="bg-slate-900/60 p-2 rounded border border-slate-800 flex items-center space-x-1.5">
+                <i class="fa-solid fa-plug text-rose-400 w-4 text-center"></i>
+                <span>K22: Charging Interface</span>
+              </li>
+            </ul>
             </div>
 
             <!-- Software -->
             <div>
-              <span class="text-xs font-bold text-sky-400 uppercase tracking-widest flex items-center space-x-1">
+            <span class="text-xs font-bold text-sky-400 uppercase tracking-widest flex items-center space-x-1">
                 <span class="w-1.5 h-1.5 rounded-full bg-sky-500 animate-pulse"></span>
                 <span>Klasifikasi Software</span>
               </span>
-              <ul class="mt-1 grid grid-cols-2 gap-2 text-xs text-slate-300">
+              
+              <ul class="mt-2 grid grid-cols-2 gap-2 text-xs text-slate-300">
+                <!-- K8 -->
                 <li class="bg-slate-900/60 p-2 rounded border border-slate-800 flex items-center space-x-1.5">
-                  <i class="fa-solid fa-rotate text-sky-400"></i>
-                  <span>Bootloop Stuck Logo</span>
+                  <i class="fa-solid fa-rotate text-sky-400 w-4 text-center"></i>
+                  <span>K8: Boot Restart</span>
                 </li>
+                <!-- K12 -->
                 <li class="bg-slate-900/60 p-2 rounded border border-slate-800 flex items-center space-x-1.5">
-                  <i class="fa-solid fa-triangle-exclamation text-sky-400"></i>
-                  <span>Aplikasi Force Close</span>
+                  <i class="fa-solid fa-arrows-spin text-sky-400 w-4 text-center"></i>
+                  <span>K12: Bootloop</span>
                 </li>
+                <!-- K13 -->
                 <li class="bg-slate-900/60 p-2 rounded border border-slate-800 flex items-center space-x-1.5">
-                  <i class="fa-solid fa-gauge-simple-high text-sky-400"></i>
-                  <span>Sistem Melambat (Lag)</span>
+                  <i class="fa-solid fa-barcode text-sky-400 w-4 text-center"></i>
+                  <span>K13: IMEI (Software Corrupt)</span>
                 </li>
+                <!-- K15 -->
                 <li class="bg-slate-900/60 p-2 rounded border border-slate-800 flex items-center space-x-1.5">
-                  <i class="fa-solid fa-key text-sky-400"></i>
-                  <span>Lupa Pola / Sandi</span>
+                  <i class="fa-solid fa-microchip text-sky-400 w-4 text-center"></i>
+                  <span>K15: EEPROM</span>
+                </li>
+                <!-- K23 -->
+                <li class="bg-slate-900/60 p-2 rounded border border-slate-800 flex items-center space-x-1.5 col-span-2 md:col-span-1">
+                  <i class="fa-solid fa-gears text-sky-400 w-4 text-center"></i>
+                  <span>K23: Software (Sistem Operasi)</span>
                 </li>
               </ul>
             </div>
@@ -224,7 +310,6 @@
         <div class="space-y-3 max-w-xl mx-auto">
           <p class="text-slate-400 text-xs uppercase tracking-widest font-semibold font-outfit">Pertanyaan Gejala</p>
           <h2 id="question-text" class="text-xl md:text-2xl font-bold font-outfit text-white leading-relaxed">
-            Apakah smartphone Anda bisa menyala sampai ke menu utama?
           </h2>
         </div>
 
@@ -282,7 +367,7 @@
           <h1 class="text-2xl font-bold text-slate-900">LAPORAN HASIL DIAGNOSA SISTEM PAKAR</h1>
           <p class="text-xs text-slate-500">SENSROID C4.5 • Diagnosa Kerusakan Smartphone Android</p>
           <div class="text-[10px] text-slate-400 mt-2">
-            Dicetak pada: <span id="print-date">12 Juli 2026</span>
+            Didiagnosis pada: <span id="print-date"></span>
           </div>
         </div>
 
@@ -324,7 +409,6 @@
             <div>
               <p class="text-xs font-bold text-indigo-400 uppercase tracking-widest font-outfit">Kesimpulan Analisis</p>
               <h2 id="result-title" class="text-2xl md:text-3xl font-extrabold font-outfit text-white mt-1 print:text-slate-900">
-                Layar/LCD Pecah atau Ghost Touch
               </h2>
             </div>
 
@@ -390,44 +474,107 @@
             <span>Kerusakan Hardware (Perangkat Keras)</span>
           </h3>
           
-          <div class="space-y-3">
+          <div class="space-y-3 max-h-[600px] overflow-y-auto pr-2 custom-scrollbar">
+            
+            <!-- K1 & K2: Audio (Speaker & Mic) -->
             <div class="bg-slate-800/30 border border-slate-700/40 p-4 rounded-xl space-y-2">
               <h4 class="font-bold text-sm text-slate-200 flex items-center justify-between">
-                <span>1. Layar/LCD Pecah atau Ghost Touch</span>
+                <span>1. Speaker & Microphone (K1 & K2)</span>
+                <div class="space-x-1.5 text-rose-400 text-xs">
+                  <i class="fa-solid fa-volume-high"></i>
+                  <i class="fa-solid fa-microphone"></i>
+                </div>
+              </h4>
+              <p class="text-xs text-slate-400 leading-relaxed">
+                Suara panggilan telepon pecah/tidak terdengar sama sekali, musik tidak mengeluarkan suara dari speaker luar, atau lawan bicara tidak dapat mendengar suara Anda akibat kegagalan komponen mic fisik.
+              </p>
+            </div>
+
+            <!-- K3: Vibrator Interface -->
+            <div class="bg-slate-800/30 border border-slate-700/40 p-4 rounded-xl space-y-2">
+              <h4 class="font-bold text-sm text-slate-200 flex items-center justify-between">
+                <span>2. Vibrator Interface (K3)</span>
+                <i class="fa-solid fa-wave-square text-rose-400"></i>
+              </h4>
+              <p class="text-xs text-slate-400 leading-relaxed">
+                HP sama sekali tidak bergetar saat ada notifikasi masuk, panggilan telepon, atau saat sistem memberikan respon haptik (umpan balik sentuhan), meskipun fitur getar sudah diaktifkan di pengaturan.
+              </p>
+            </div>
+
+            <!-- K4: IC WiFi & Bluetooth -->
+            <div class="bg-slate-800/30 border border-slate-700/40 p-4 rounded-xl space-y-2">
+              <h4 class="font-bold text-sm text-slate-200 flex items-center justify-between">
+                <span>3. IC WiFi / Bluetooth (K4)</span>
+                <i class="fa-solid fa-wifi text-rose-400"></i>
+              </h4>
+              <p class="text-xs text-slate-400 leading-relaxed">
+                Tombol WiFi atau Bluetooth di menu bar "mental" (tidak bisa digeser/diaktifkan), jangkauan sinyal WiFi sangat lemah meskipun dekat *router*, atau perangkat gagal memindai koneksi nirkabel di sekitar.
+              </p>
+            </div>
+
+            <!-- K5 & K16: Modul Layar (Touchscreen & LCD) -->
+            <div class="bg-slate-800/30 border border-slate-700/40 p-4 rounded-xl space-y-2">
+              <h4 class="font-bold text-sm text-slate-200 flex items-center justify-between">
+                <span>4. Layar / LCD & Touchscreen (K5 & K16)</span>
                 <i class="fa-solid fa-mobile-screen text-rose-400"></i>
               </h4>
               <p class="text-xs text-slate-400 leading-relaxed">
-                Gejala berupa layar retak/pecah fisik, garis warna/hitam vertikal pada panel, kedipan konstan, atau respon sentuhan liar yang aktif sendiri (ghost touch) tanpa disentuh.
+                Layar retak/pecah fisik, bergaris warna-warni, layar berkedip konstan, tidak tampil gambar (blank hitam), atau terjadi respon sentuhan liar yang aktif sendiri tanpa disentuh (*ghost touch*).
               </p>
             </div>
 
+            <!-- K6 & K14: Jaringan & Sinyal (SIM Card & IC WTR) -->
             <div class="bg-slate-800/30 border border-slate-700/40 p-4 rounded-xl space-y-2">
               <h4 class="font-bold text-sm text-slate-200 flex items-center justify-between">
-                <span>2. Baterai Drop atau Kembung</span>
-                <i class="fa-solid fa-battery-quarter text-rose-400"></i>
+                <span>5. Konektivitas & Sinyal (K6 & K14)</span>
+                <i class="fa-solid fa-signal text-rose-400"></i>
               </h4>
               <p class="text-xs text-slate-400 leading-relaxed">
-                Kapasitas baterai turun secara instan (misal dari 80% ke 20% dalam beberapa menit), HP sering mati sendiri di sisa baterai tertentu, atau casing belakang melengkung akibat baterai kembung.
+                Muncul indikator "Tidak Ada Layanan" atau "Hanya Panggilan Darurat", kartu SIM tidak terbaca sama sekali di slot, atau sinyal jaringan seluler naik-turun ekstrem hingga sering hilang total.
               </p>
             </div>
 
+            <!-- K9, K10, K19, K21: Chipset & Motherboard (IC Power, CPU, RAM, UEM) -->
             <div class="bg-slate-800/30 border border-slate-700/40 p-4 rounded-xl space-y-2">
               <h4 class="font-bold text-sm text-slate-200 flex items-center justify-between">
-                <span>3. Port Charger Rusak</span>
-                <i class="fa-solid fa-plug text-rose-400"></i>
-              </h4>
-              <p class="text-xs text-slate-400 leading-relaxed">
-                Proses pengisian daya tidak masuk, kabel charger longgar, port terasa goyang saat dicolokkan, atau pengisian daya terputus-putus dan hanya berfungsi di sudut kelengkungan kabel tertentu.
-              </p>
-            </div>
-
-            <div class="bg-slate-800/30 border border-slate-700/40 p-4 rounded-xl space-y-2">
-              <h4 class="font-bold text-sm text-slate-200 flex items-center justify-between">
-                <span>4. IC Power Rusak</span>
+                <span>6. Motherboard & Core Chipset (K9, K10, K19, K21)</span>
                 <i class="fa-solid fa-microchip text-rose-400"></i>
               </h4>
               <p class="text-xs text-slate-400 leading-relaxed">
-                Smartphone mati total secara mendadak, tidak merespon saat dicas (tidak ada getar/indikator pengisian sama sekali), atau mesin panas berlebih di dekat posisi prosesor saat dihubungkan ke arus listrik.
+                HP mati total secara tiba-tiba tanpa sebab fisik, konsumsi baterai sangat boros disertai panas berlebih (*overheat*) di area mesin utama, atau ponsel mendadak tidak merespons perintah pengisian daya sama sekali.
+              </p>
+            </div>
+
+            <!-- K11: Baterai -->
+            <div class="bg-slate-800/30 border border-slate-700/40 p-4 rounded-xl space-y-2">
+              <h4 class="font-bold text-sm text-slate-200 flex items-center justify-between">
+                <span>7. Baterai Drop & Kembung (K11)</span>
+                <i class="fa-solid fa-battery-three-quarters text-rose-400"></i>
+              </h4>
+              <p class="text-xs text-slate-400 leading-relaxed">
+                Persentase baterai turun sangat instan (misal 90% langsung ke 20% dalam hitungan menit), HP mendadak mati di sisa baterai tertentu, atau bagian *backcover* terdorong keluar akibat sel baterai kembung.
+              </p>
+            </div>
+
+            <!-- K22 & K17: Pengisian Daya (Charging Interface & Flexi) -->
+            <div class="bg-slate-800/30 border border-slate-700/40 p-4 rounded-xl space-y-2">
+              <h4 class="font-bold text-sm text-slate-200 flex items-center justify-between">
+                <span>8. Pengisian Daya & Flexi Cable (K17 & K22)</span>
+                <i class="fa-solid fa-plug text-rose-400"></i>
+              </h4>
+              <p class="text-xs text-slate-400 leading-relaxed">
+                Daya tidak bertambah saat dicas, colokan USB terasa longgar/bergoyang, atau pengisian daya terputus-putus dan hanya berfungsi saat kabel ditekuk pada sudut kemiringan tertentu.
+              </p>
+            </div>
+
+            <!-- K20 & K18: Tombol Fisik & Hardbrick -->
+            <div class="bg-slate-800/30 border border-slate-700/40 p-4 rounded-xl space-y-2">
+              <h4 class="font-bold text-sm text-slate-200 flex items-center justify-between">
+                <span>9. Power Key & Hardbrick (K18 & K20)</span>
+                <i class="fa-solid fa-power-off text-rose-400"></i>
+              </h4>
+              <p class="text-xs text-slate-400 leading-relaxed">
+                Tombol daya keras/tidak membal saat ditekan, HP tidak mau menyala walau sistem mesin sehat, atau kondisi *Hardbrick* di mana mesin terkunci mati total dan hanya terdeteksi sebagai port USB kosong di komputer.
               </p>
             </div>
           </div>
@@ -441,43 +588,51 @@
           </h3>
 
           <div class="space-y-3">
+            
+            <!-- K8 & K12: Boot Restart & Bootloop -->
             <div class="bg-slate-800/30 border border-slate-700/40 p-4 rounded-xl space-y-2">
               <h4 class="font-bold text-sm text-slate-200 flex items-center justify-between">
-                <span>1. Bootloop (Stuck Logo)</span>
-                <i class="fa-solid fa-rotate text-sky-400"></i>
+                <span>1. Boot Restart & Bootloop (K8 & K12)</span>
+                <div class="space-x-1.5 text-sky-400 text-xs">
+                  <i class="fa-solid fa-rotate"></i>
+                  <i class="fa-solid fa-arrows-spin"></i>
+                </div>
               </h4>
               <p class="text-xs text-slate-400 leading-relaxed">
-                Smartphone terus menerus melakukan rebooting atau stuck di tampilan logo merk HP (tidak pernah berhasil masuk ke sistem utama). Biasanya disebabkan kerusakan file system OS atau kegagalan update.
+                Ponsel terus-menerus melakukan restart otomatis secara berulang sebelum masuk ke menu utama, atau tertahan selamanya di logo merek (*stuck logo*). Biasanya disebabkan oleh file sistem OS yang korup atau kegagalan saat pembaruan perangkat lunak.
               </p>
             </div>
 
+            <!-- K13: IMEI (Software Corrupt) -->
             <div class="bg-slate-800/30 border border-slate-700/40 p-4 rounded-xl space-y-2">
               <h4 class="font-bold text-sm text-slate-200 flex items-center justify-between">
-                <span>2. Lupa Pola/Sandi (Kunci Layar)</span>
-                <i class="fa-solid fa-lock text-sky-400"></i>
+                <span>2. IMEI Corrupt (K13)</span>
+                <i class="fa-solid fa-barcode text-sky-400"></i>
               </h4>
               <p class="text-xs text-slate-400 leading-relaxed">
-                Kondisi di mana sistem android berjalan normal di background, tetapi pengguna kehilangan hak akses/kunci layar akibat salah memasukkan pola, PIN, atau kata sandi berkali-kali.
+                Nomor IMEI berubah menjadi 'null', tidak diketahui, atau tidak cocok dengan mesin, menyebabkan kartu SIM dari operator seluler mana pun sama sekali tidak mendapatkan sinyal atau layanan jaringan diblokir.
               </p>
             </div>
 
+            <!-- K15: EEPROM -->
             <div class="bg-slate-800/30 border border-slate-700/40 p-4 rounded-xl space-y-2">
               <h4 class="font-bold text-sm text-slate-200 flex items-center justify-between">
-                <span>3. Aplikasi Sering Force Close</span>
-                <i class="fa-solid fa-triangle-exclamation text-sky-400"></i>
+                <span>3. EEPROM (K15)</span>
+                <i class="fa-solid fa-microchip text-sky-400"></i>
               </h4>
               <p class="text-xs text-slate-400 leading-relaxed">
-                Aplikasi yang dibuka sering kali menutup sendiri secara paksa dan menampilkan pesan error 'Unfortunately has stopped'. Terjadi akibat kerusakan cache sistem atau inkompatibilitas framework Android.
+                Kerusakan atau kesalahan penulisan data konfigurasi dasar (*NVRAM/EFS*) pada penyimpanan internal, yang mengakibatkan hilangnya data kalibrasi penting ponsel seperti alamat MAC Wi-Fi, Bluetooth, atau parameter jaringan.
               </p>
             </div>
 
+            <!-- K23: Software / Sistem Operasi -->
             <div class="bg-slate-800/30 border border-slate-700/40 p-4 rounded-xl space-y-2">
               <h4 class="font-bold text-sm text-slate-200 flex items-center justify-between">
-                <span>4. Sistem Melambat (Lag Parah)</span>
-                <i class="fa-solid fa-gauge-simple-high text-sky-400"></i>
+                <span>4. Software / Sistem Operasi (K23)</span>
+                <i class="fa-solid fa-gears text-sky-400"></i>
               </h4>
               <p class="text-xs text-slate-400 leading-relaxed">
-                Penurunan kecepatan respon sistem secara signifikan saat membuka menu atau multitasking, frame rate patah-patah (lagging), yang biasanya diakibatkan oleh kapasitas memori internal yang hampir penuh atau RAM yang sesak.
+                Terjadinya kesalahan sistemik secara global pada Android seperti layanan sistem Google Play terus berhenti, aplikasi bawaan tidak dapat merespons, atau kegagalan *framework* OS secara keseluruhan yang membutuhkan tindakan instalasi ulang (*flashing*).
               </p>
             </div>
           </div>
